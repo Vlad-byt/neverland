@@ -1,0 +1,13 @@
+{
+  "events": [
+    {
+      "msg": "Увеличить население?",
+      "yesChoiceData": [
+        {"name": "Money", "value": 10, "operation": false},
+        {"name": "Population", "value": 10, "operation": true}
+      ],
+
+      "noChoiceData": []
+    }
+  ]
+}
