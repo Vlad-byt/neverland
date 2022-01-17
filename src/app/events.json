@@ -3,11 +3,100 @@
     {
       "msg": "Увеличить население?",
       "yesChoiceData": [
-        {"name": "Money", "value": 10, "operation": false},
-        {"name": "Population", "value": 10, "operation": true}
+        {
+          "name": "Money",
+          "value": 10,
+          "operation": false
+        },
+        {
+          "name": "Population",
+          "value": 10,
+          "operation": true
+        }
       ],
-
       "noChoiceData": []
+    },
+    {
+      "msg": "Устроить праздничный ужин для людей",
+      "yesChoiceData": [
+        {
+          "name": "Money",
+          "value": 50,
+          "operation": false
+        },
+        {
+          "name": "Happiness",
+          "value": 50,
+          "operation": true
+        }
+      ],
+      "noChoiceData": []
+    },
+    {
+      "msg": "Сбежали люди, устроить погоню?",
+      "yesChoiceData": [
+        {
+          "name": "Money",
+          "value": 20,
+          "operation": false
+        }
+      ],
+      "noChoiceData": [
+        {
+          "name": "Population",
+          "value": 10,
+          "operation": false
+        }
+      ]
+    },
+    {
+      "msg": "На соседней ферме упала популяция людей до критического уровня, перевезти своих людей за хорошую оплату ?",
+      "yesChoiceData": [
+        {
+          "name": "Money",
+          "value": 100,
+          "operation": true
+        },
+        {
+          "name": "Happiness",
+          "value": 10,
+          "operation": false
+        }
+      ],
+      "noChoiceData": [
+        {
+          "name": "Population",
+          "value": 10,
+          "operation": false
+        }
+      ]
+    },
+    {
+      "msg": "У вас пожар, запросить помощь?",
+      "yesChoiceData": [
+        {
+          "name": "Money",
+          "value": 20,
+          "operation": false
+        },
+        {
+          "name": "Happiness",
+          "value": 10,
+          "operation": false
+        }
+      ],
+      "noChoiceData": [
+        {
+          "name": "Happiness",
+          "value": 20,
+          "operation": false
+        },
+        {
+          "name": "Population",
+          "value": 10,
+          "operation": false
+        }
+      ]
     }
   ]
 }
