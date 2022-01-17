@@ -1,50 +1,51 @@
 package app;
 
+import app.infrastructure.ConsoleManager;
+import app.infrastructure.IOManager;
+import app.presenters.EventPresenter;
+import app.presenters.PlayerPresenter;
 import com.google.gson.Gson;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 class Game {
-    Scanner input = new Scanner(System.in);
+    Player player = new Player();
+    IOManager ioManager = new ConsoleManager();
+    StoreEvents storeEvents = new Gson().fromJson(new FileReader("./src/app/events.json"), StoreEvents.class);
 
-    public void start() throws FileNotFoundException {
-        Gson gson = new Gson();
-        StoreEvents storeEvents = gson.fromJson(new FileReader("./src/app/events.json"), StoreEvents.class);
-        Player player = new Player();
-
-        gameLoop(player, storeEvents.events);
+    Game() throws FileNotFoundException {
     }
 
-    private void gameLoop(Player player, ArrayList<Event> events) {
+    public void start() {
+        gameLoop();
+    }
+
+    private void gameLoop() {
         while (player.alive) {
-            Random rand = new Random();
-            Event event = events.get(rand.nextInt(events.size()));
+            Event randomEvent = getRandomEvent();
+            showEventMessage(randomEvent);
 
-            System.out.println(event.msg);
+            String answer = ioManager.input();
+            randomEvent.performEffectsDueToChoice(answer, player.stats);
 
-            String answer = input.nextLine();
-
-            if (answer.equals("y")) {
-                if (event.yesChoiceData.length > 0) {
-                    for (int i = 0; i < event.yesChoiceData.length; i++) {
-                        event.yesChoiceData[i].perform(player.stats);
-                    }
-                }
-            } else {
-                if (event.noChoiceData.length > 0) {
-                    for (int i = 0; i < event.yesChoiceData.length; i++) {
-                        event.noChoiceData[i].perform(player.stats);
-                    }
-                }
-            }
-
-            System.out.println(player.stats.get("Population").value);
-            System.out.println(player.stats.get("Happiness").value);
-            System.out.println(player.stats.get("Money").value);
+            showPlayerStats();
         }
+    }
+
+    private Event getRandomEvent() {
+        Random rand = new Random();
+        return storeEvents.events.get(rand.nextInt(storeEvents.events.size()));
+    }
+
+    private void showEventMessage(Event event) {
+        EventPresenter eventPresenter = new EventPresenter(event);
+        ioManager.output(eventPresenter.message());
+    }
+
+    private void showPlayerStats() {
+        PlayerPresenter playerPresenter = new PlayerPresenter(player);
+        ioManager.output(playerPresenter.stats());
     }
 }
